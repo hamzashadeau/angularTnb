@@ -1,0 +1,93 @@
+<div class="acheterUnterrain">
+<h1 id="acheterTerrain">acheter un terrain</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+<div class="card">
+  <div class="card-header">
+liste de Redevable:
+  </div>
+  <div class="card-body">
+    <table class="table table-hover table-striped">
+      <thead>
+      <th>id</th>
+      <th>identifiant</th>
+      <th>nom</th>
+      <th>Action</th>
+
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of redevables">
+        <td>{{c.identifiant}}</td>
+        <td>{{c.nom}}</td>
+        <td><button class="btn btn-info btn-sm fa fa-trash" (click)="deleteByReference(c)"></button>
+          <button class="btn btn-danger btn-sm fa fa-plus" (click)="findTerrainItemByRedevable(c)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="listedeterrain">
+<div class="card">
+  <div class="card-header"> liste de terrain de redevable selectioneé</div>
+  <div class="card-body">
+    <table class="table table-hover table-striped">
+      <thead>
+      <th>id</th>
+      <th>surface</th>
+      <th>dernier date de paiment</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ci of terrains">
+        <td>{{ci.id}}</td>
+        <td>{{ci.surface}}</td>
+        <td>{{ci.dernierAnnePaiement}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+      </div>
+    <div class="col-md-6">
+<div class="card">
+  <div class="card-header" id="acheter">
+{{infoachat}}{{titreachat}}
+  </div>
+  <div class="card-body" id="formachat">
+    <div class="form-group">
+      <label>ref:</label>
+      <input type="text" class="form-control" [(ngModel)]="achat.reference" placeholder="Ref_ahcat:">
+    </div>
+    <div class="form-group">
+      <label>id de oldredevable :</label>
+      <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" [(ngModel)]="achat.oldredevable.identifiant" placeholder="identifiant_oldRedevable:">
+      </div>
+        <div class="col-md-6">
+      <button class="btn btn-outline-info btn-group-lg fa fa-plus" (click)="findTerrainRedevable(achat.oldredevable.identifiant)"></button>
+    </div>
+      </div>
+    </div>
+    <div id="listedeterrain" >
+
+    </div>
+    <div class="form-group">
+      <label>id de new redevable :</label>
+      <input type="text" class="form-control" [(ngModel)]="achat.newRedevable.identifiant" placeholder="id_newRedevable:">
+    </div>
+    <div class="form-group">
+      <label>prix :</label>
+      <input type="number" class="form-control" [(ngModel)]="achat.prix" placeholder="prix">
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-outline-dark btn-block" (click)="saveAchat()" [disabled]="!verifierachat()">acheter</button>
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+</div>
