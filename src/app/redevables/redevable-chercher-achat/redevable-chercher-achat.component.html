@@ -1,0 +1,60 @@
+<div class="findfiche" id="chercherUneAchat">
+  <h1> chercher une achat</h1>
+  <select id="findchoice" name="achat" (change)="selectioner($event)">
+    <option value="acceuil"> selectioner la maniere de rechercher</option>
+    <option value="findByTerrainId"> find By Terrain Id</option>
+    <option value="findByAchatDate"> find By date achat</option>
+    <option value="findByOldRedevableid"> find By Old redevable id</option>
+    <option value="findByNewRedevableid"> find By New redevable id</option>
+  </select>
+  <div class="charcherParTerrainId col-md-8">
+    <div class="card" id="table">
+      <div class="card-header">
+        <div id="findByterrain">
+          <div ><label>id terrain</label>
+            <input class="search" type="number" class="form-control" [(ngModel)]="this.terrainAchatID.id" placeholder="id_terrain:">
+          </div>
+          <button class="btn btn-outline-dark btn-block" (click)="findAchatByTerrainId" >findByterrainId</button>
+        </div>
+        <div id="findBydateachat">
+          <div ><label>date achat</label>
+            <input class="search" type="date" class="form-control" [(ngModel)]="this.date.date" placeholder="yyyy-MM-dd">
+          </div>
+          <button class="btn btn-outline-dark btn-block" (click)="findAchatBydateAchat" >findBydateAchat</button>
+        </div>
+        <div id="findByoldredevableId">
+          <div ><label>Old redevable Id</label>
+            <input class="search" type="number" class="form-control" [(ngModel)]="this.terrainAchatID.id" placeholder="old_redevable_id">
+          </div>
+          <button class="btn btn-outline-dark btn-block" (click)="findAchatByoldRedevableId" >findBydateAchat</button>
+        </div>
+        <div id="findBynewredevableId">
+          <div ><label>new redevable Id</label>
+            <input class="search" type="number" class="form-control" [(ngModel)]="this.terrainAchatID.id" placeholder="new_redevable_id">
+          </div>
+          <button class="btn btn-outline-dark btn-block" (click)="findAchatByNewRedevableId" >findBydateAchat</button>
+        </div>
+      </div>
+      <div class="card-body" id="info">
+        <table class="table table-hover table-striped">
+          <thead>
+          <th>id</th>
+          <th>oldredevable</th>
+          <th>newRedevable</th>
+          <th>terrain</th>
+          <th>prix</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of achatTerrain">
+            <td>{{c.id}}</td>
+            <td>{{c.oldredevable.id}}</td>
+            <td>{{c.newRedevable.id}}</td>
+            <td>{{c.terrain.id}}</td>
+            <td>{{c.prix}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

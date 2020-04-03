@@ -1,0 +1,47 @@
+h1{
+  text-align: center;
+  color: #EAE2B7;
+  padding-bottom: 40px;
+  padding-top: 60px;
+}
+.ajouterUnRedevable{
+  padding-top: 20px;
+  padding-bottom:30px;
+}
+#terrainform{
+  display: none;
+}
+#findBydateachat   {
+  display: none;
+}
+#findByoldredevableI{
+  display: none;
+}
+#findBynewredevableId{
+  display: none;
+}
+#findByterrain{
+  display: none;
+}
+.fichefind{
+  margin-top: 250px;
+  padding-bottom: 150px;
+}
+#findchoice{
+  margin-left: 25%;
+  margin-bottom: 40px;
+  width: 50%;
+  height: 40px;
+}
+#table{
+  margin-left: 27%;
+  width: 90%;
+  height: 200px;
+}
+#info{
+  height: 500px;
+}
+.search{
+  width: 50%;
+  display: block;
+}

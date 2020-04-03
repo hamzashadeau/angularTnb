@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class RedevablesComponent implements OnInit {
 
   constructor() { }
+  isNavbarCollapsed = true;
 
   ngOnInit(): void {
   }
-
 }

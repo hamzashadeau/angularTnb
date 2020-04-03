@@ -1,19 +1,22 @@
-<div id="acceuil">
-  <h1>Redevable</h1>
-<ul>
-<li class="botton3"><a href="#chercherUneAchat">Chercher une Achat</a></li>
-</ul>
-  <nav>
-  <ul>
-  <li class="botton1"><a href="#ajouterRedevable">Ajouter Un Redevable</a></li>
-  <li class="botton2"><a href="#acheterTerrain">Acheter un Terrain</a></li>
-  </ul>
-</nav>
-</div>
-  <div>
-  <app-redevable-liste></app-redevable-liste>
-</div>
-<div>
-      <app-redevable-create></app-redevable-create>
-</div>
 
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
+  <a class="navbar-brand" href="#">TNB</a>
+  <ul class="navbar-nav mr-auto">
+  <li class="nav-item dropdown" ngbDropdown>
+    <a  class="nav-link" id="dropdownBasic1" ngbDropdownToggle>redevable</a>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item" routerLink="/redevable/ajouter-redevable">Ajouter Redevable</button>
+      <button class="dropdown-item" routerLink="/redevable/acheter-terrain">Acheter Terrain</button>
+      <button class="dropdown-item" routerLink="/redevable/chercher-achat">Chercher Achat</button>
+    </div>
+  </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">test</a>
+    </li>
+  </ul>
+
+</nav>
+
+<div class="container pt-5">
+  <router-outlet></router-outlet>
+</div>
