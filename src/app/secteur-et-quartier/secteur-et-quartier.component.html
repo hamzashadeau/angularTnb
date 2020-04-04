@@ -1,0 +1,110 @@
+<div class="section pt-5">
+  <div class="row">
+    <div class="card col-md-6">
+      <div class="card-header" id="header">
+      Ajout Secteur Et Quartier
+      </div>
+      <div class="card-body">
+        <div class="row m-auto">
+          <div class="col-md-5 p-1">
+            <button class="btn btn-outline-dark btn-block" (click)="afficherCreation()">Creer nouveau Secteur</button>
+          </div>
+          <div class="col-md-5 p-1">
+            <button class="btn btn-outline-dark btn-block" (click)="afficherExistant()">Ajouter a un Secteur Existant</button>
+          </div>
+        </div>
+        <div id="createnew" class="">
+        <div class="form-group pt-2">
+          <label>Libelle:</label>
+          <input type="text" class="form-control" [(ngModel)]="secteur.libelle" placeholder="entrer Nom du Secteur:">
+        </div>
+
+
+
+        <div class="card">
+          <a (click)="afficher()">  <div class="card-header"> Ajouter un quartier</div></a>
+          <div id="quartierform1" class="quartierform">
+            <div class="card-body">
+              <div class="row" *ngFor="let q of listQuartiers">
+                <div class="col-md-12"><label>Libelle :</label>
+                  <input type="text" class="form-control" value="{{q.libelle}}" disabled placeholder="quartier">
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+
+
+                <div class="col-md-12"><label>Libelle :</label>
+                  <input type="text" class="form-control" [(ngModel)]="quartier.libelle" placeholder="quartier">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-outline-danger btn-block" (click)="addQuartier()" [disabled]="verifierQuartier()">+</button>
+          </div>
+        </div>
+        </div>
+        <div id="exist" class="d-none">
+          <label class="pt-3">Secteurs :</label>
+          <select id="existingSect" class="browser-default custom-select m-1 " name="Sects" [(ngModel)]="selectedSecteur" (ngModelChange)="selectioner()" >
+            <option *ngFor="let s of secteurs" [ngValue]="s">{{s.libelle}}</option>
+          </select>
+          <div class="card m-1">
+            <a (click)="afficher()">  <div class="card-header"> Ajouter un quartier</div></a>
+            <div id="quartierform2" class="quartierform">
+              <div class="card-body">
+                <div class="row" *ngFor="let q of listQuartiers">
+                  <div class="col-md-12"><label>Libelle :</label>
+                    <input type="text" class="form-control" value="{{q.libelle}}" disabled placeholder="quartier">
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+
+                  <div class="col-md-12"><label>Libelle :</label>
+                    <input type="text" class="form-control" [(ngModel)]="quartier.libelle" placeholder="quartier">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline-danger btn-block" (click)="addQuartier()" [disabled]="verifierQuartier()">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer" id="new">
+        <button class="btn btn-outline-dark btn-block" (click)="saveSecteur()" [disabled]="verifierSecteur()">Save</button>
+      </div>
+
+      <div class="card-footer d-none" id="existing">
+        <button class="btn btn-outline-dark btn-block " (click)="saveQuartiers()" [disabled]="verifierSecteur()">Save</button>
+      </div>
+    </div>
+    <div class="card col-md-6">
+      <div class="card-header">
+        liste de quartiers avec leurs secteurs:
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-striped">
+          <thead>
+          <th>quartier</th>
+          <th>secteur</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of quartiers">
+            <td>{{c.libelle}}</td>
+            <td>{{c.secteur.libelle}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

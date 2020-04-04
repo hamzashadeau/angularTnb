@@ -14,6 +14,7 @@ import {Datee} from '../model/datee.model';
 })
 export class RedevableService {
 
+  // tslint:disable-next-line:variable-name
   private _redevable: Redevable ;
   private _typeredevable: TypeRedevable;
   private _redevables: Array<Redevable>;
@@ -321,12 +322,14 @@ return this._redevables;
     }
   }
   public verifierachat(): boolean{
+    // tslint:disable-next-line:max-line-length
     if (this._achat.id != null && this._achat.oldredevable != null && this._achat.newRedevable != null && this._achat.prix != null && this._achat.terrain != null) {
       return true;
     } else  {
       return  false;
     }
   }
+  // tslint:disable-next-line:adjacent-overload-signatures
   set terrainsRedevable(value: Terrain) {
     this._terrainsRedevable = value;
   }

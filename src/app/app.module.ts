@@ -12,6 +12,7 @@ import { NotificationComponent } from './notification/notification.component';
 import {AppRoutingModule} from './app-routing.module';
 import { RedevableChercherAchatComponent } from './redevables/redevable-chercher-achat/redevable-chercher-achat.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SecteurEtQuartierComponent } from './secteur-et-quartier/secteur-et-quartier.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RedevableCreateComponent,
     RedevableListeComponent,
     NotificationComponent,
-    RedevableChercherAchatComponent
+    RedevableChercherAchatComponent,
+    SecteurEtQuartierComponent,
   ],
     imports: [
         BrowserModule,
