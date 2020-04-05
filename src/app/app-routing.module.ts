@@ -1,5 +1,4 @@
 import { Routes, RouterModule } from '@angular/router';
-import {RedevablesComponent} from './redevables/redevables.component';
 import {NotificationComponent} from './notification/notification.component';
 import {RedevableCreateComponent} from './redevables/redevable-create/redevable-create.component';
 import {RedevableListeComponent} from './redevables/redevable-liste/redevable-liste.component';
@@ -10,6 +9,7 @@ import {SecteurEtQuartierComponent} from './secteur-et-quartier/secteur-et-quart
 
 
 const routes: Routes = [
+  { path: 'notification', component: NotificationComponent},
   { path: 'secteur-quartier', component: SecteurEtQuartierComponent},
   { path: 'redevable', children : [
       { path : 'ajouter-redevable', component : RedevableCreateComponent},

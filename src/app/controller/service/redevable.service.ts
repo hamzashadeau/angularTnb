@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Redevable} from '../model/redevable.model';
 import {HttpClient} from '@angular/common/http';
 import {TypeRedevable} from '../model/type-redevable.model';
@@ -7,6 +7,8 @@ import {Achat} from '../model/achat.model';
 import {Categorie} from '../model/categorie.model';
 import {Quartier} from '../model/quartier.model';
 import {Datee} from '../model/datee.model';
+import {Observable} from 'rxjs';
+import {TerrainService} from './terrain.service';
 
 
 @Injectable({
@@ -14,210 +16,9 @@ import {Datee} from '../model/datee.model';
 })
 export class RedevableService {
 
-  // tslint:disable-next-line:variable-name
-  private _redevable: Redevable ;
-  private _typeredevable: TypeRedevable;
-  private _redevables: Array<Redevable>;
-  private _terrains: Array<Terrain>;
-  private _terrainAchatID: Terrain;
-  private _terrainsRedevable: Terrain;
-  private _achat: Achat;
-  private _inforedevable: String;
-  private _titreredevable: String;
-  private _infoachat: String;
-  private _titreachat: String;
-  private _categories: Array<Categorie>;
-  private _quarties: Array<Quartier>;
-  private _achatTerrain: Array<Achat>;
-  private c: Terrain;
-  private _terrainId: number;
-  private _date: Datee;
-private _result: string;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  public save() {
-    this.http.post<number>('http://localhost:8080/TNB-Api/Redevable/save', this.redevable).subscribe(
-      data => {
-        if (data === -1) {
-          this._titreredevable = ' ';
-          this._inforedevable = 'ce redevable est dejaa existe';
-          document.getElementById('header').style.color = 'red';
-        } else if (data === -2) {
-          this._titreredevable = ' ';
-          this._inforedevable = 'le type redevable non existe';
-          document.getElementById('header').style.color = 'red';
-        }
-        if (data > 0) {
-        console.log('success');
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public addTerrain() {
-    this.redevable.terrains.push(this.cloneTerrain(this.terrainsRedevable));
-    this.terrainsRedevable = null;
-  }
-  public  deleteByReference(c: Redevable) {
-    this.http.delete<number>('http://localhost:8080/TNB-Api/Redevable/deletebyidentifiant/' + c.identifiant).subscribe(
-      data => {
-        console.log('delete sucess' + data);
-        this.findAll();
-      }
-    );
-  }
-public findTerrainItemByRedevable(c: Redevable) {
-  this.http.get<Array<Terrain>>( 'http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c.identifiant).subscribe(
-    data => {
-      this.terrains = data ;
-      console.log('ha data ' + data);
-    }, error => {
-      console.log('ana eroroa');
-    }
-  );
-}
-  public findTerrainByRedevableId(c: string) {
-    this.http.get<Array<Terrain>>( 'http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c).subscribe(
-      data => {
-        this.result = ' <select name="Terrain" (change)="selectionerTerrain($event)">';
-        console.log(data);
-        this.terrains = data;
-        this.terrains.forEach( e => {
-          this._result += '<option value="';
-          this._result +=  e.id ;
-          this._result += '">';
-          this._result += e.id ;
-          this._result += '</option>';
-          console.log(e.id);
-        });
-        this._result += '</select>';
-        document.getElementById('listedeterrain').innerHTML = this._result;
-        console.log('ha data ' + data);
-        console.log(this._result);
-      }, error => {
-        console.log('ana eroroa');
-      }
-    );
-  }
-public findAll() {
-    this.http.get<Array<Redevable>>('http://localhost:8080/TNB-Api/Redevable/findall').subscribe(
-      data => {
-        if (data != null) {
-          this._redevables = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAllCategorie() {
-    this.http.get<Array<Categorie>>('http://localhost:8080//TNB-Api/Categorie/findAll').subscribe(
-      data => {
-        if (data != null) {
-          this._categories = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAllQuartier() {
-    this.http.get<Array<Quartier>>('http://localhost:8080/TNB-Api/Quartier/findAll').subscribe(
-      data => {
-        if (data != null) {
-          this._quarties = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAchatByTerrainId() {
-    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByTerrainId/id/' + this.terrainId).subscribe(
-      data => {
-        if (data != null) {
-          this._achatTerrain = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAchatByoldRedevableId() {
-    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByOldredevableId/id/' + this.terrainId).subscribe(
-      data => {
-        if (data != null) {
-          this._achatTerrain = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAchatByNewRedevableId() {
-    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByNewredevableId/id/' + this.terrainId).subscribe(
-      data => {
-        if (data != null) {
-          this._achatTerrain = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public findAchatBydateAchat() {
-    this.http.get<Array<Achat>>('http://localhost:8080//TNB-Api/Achat/findByDateachat/dateachat/' + this.date.date).subscribe(
-      data => {
-        if (data != null) {
-          this._achatTerrain = data;
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
-  public saveAchat() {
-    this.http.put<number>('http://localhost:8080/TNB-Api/Achat/acheterTerrain', this.achat).subscribe(
-      data => {
-        if (data === -1) {
-          this._titreachat = ' ';
-          this._infoachat = 'le terrain est introvable';
-          document.getElementById('acheter').style.color = 'red';
-        }
-        else if (data === -2) {
-          this._titreachat = ' ';
-          this._infoachat = 'ce terrain n existe pas dans la liste de terrain de ce redevable';
-          document.getElementById('acheter').style.color = 'red';
-        }
-        else if (data === -3) {
-          this._titreachat = ' ';
-          this._infoachat = 'le oldredevable est introvable';
-          document.getElementById('acheter').style.color = 'red';
-        }
-        else if (data === -4){
-          this._titreachat = ' ';
-          this._infoachat = 'le newredevable est introvable';
-          document.getElementById('acheter').style.color = 'red';
-        }
-        else if (data === -5){
-          this._titreachat = ' ';
-          this._infoachat = 'le oldredevable est le newredevable';
-          document.getElementById('acheter').style.color = 'red';
-        }else if (data === -6) {
-          this._titreachat = ' ';
-          this._infoachat = 'le terrain a des taxes a payer ';
-          document.getElementById('acheter').style.color = 'red';
-        }
-        if (data > 0) {
-          this.findAll();
-          console.log('success');
-        }
-      }, eror => {
-        console.log('eroro');
-      }
-    );
-  }
   get redevable(): Redevable {
     if (this._redevable == null) {
       this._redevable = new Redevable();
@@ -242,10 +43,10 @@ public findAll() {
   }
 
   get redevables(): Array<Redevable> {
-if (this._redevables == null) {
-  this._redevables = new Array<Redevable>();
-}
-return this._redevables;
+    if (this._redevables == null) {
+      this._redevables = new Array<Redevable>();
+    }
+    return this._redevables;
   }
 
   set redevables(value: Array<Redevable>) {
@@ -253,13 +54,13 @@ return this._redevables;
   }
 
   get terrains(): Array<Terrain> {
- if (this._terrains == null) {
-   this.terrains = new Array<Terrain>();
-   for (let c of this.terrains) {
-     c.redevable = new Redevable();
-   }
- }
- return this._terrains;
+    if (this._terrains == null) {
+      this.terrains = new Array<Terrain>();
+      for (let c of this.terrains) {
+        c.redevable = new Redevable();
+      }
+    }
+    return this._terrains;
   }
 
   set terrains(value: Array<Terrain>) {
@@ -268,10 +69,10 @@ return this._redevables;
 
   get achat(): Achat {
     if (this._achat == null) {
-    this._achat = new Achat();
-    this._achat.terrain = new Terrain();
-    this._achat.newRedevable = new Redevable();
-    this._achat.oldredevable = new Redevable();
+      this._achat = new Achat();
+      this._achat.terrain = new Terrain();
+      this._achat.newRedevable = new Redevable();
+      this._achat.oldredevable = new Redevable();
     }
     return this._achat;
   }
@@ -281,14 +82,16 @@ return this._redevables;
   }
 
   get categories(): Array<Categorie> {
- if (this._categories == null) {
-  this._categories = new Array<Categorie>(); }
- return this._categories;
+    if (this._categories == null) {
+      this._categories = new Array<Categorie>();
+    }
+    return this._categories;
   }
 
   get quarties(): Array<Quartier> {
     if (this._quarties == null) {
-      this._quarties = new Array<Quartier>(); }
+      this._quarties = new Array<Quartier>();
+    }
     return this._quarties;
   }
 
@@ -305,30 +108,7 @@ return this._redevables;
     }
     return this._terrainsRedevable;
   }
-  private cloneTerrain(terrain: Terrain) {
-    const myClone = new Terrain();
-    myClone.id = terrain.id;
-    myClone.surface = terrain.surface;
-    myClone.dernierAnnePaiement = terrain.dernierAnnePaiement;
-    myClone.quartier = terrain.quartier;
-    myClone.categorie = terrain.categorie;
-    return myClone;
-  }
-  public verifier(): boolean {
-    if ( this._redevable.nom != null && this._redevable.identifiant != null && this._redevable.typeRedevable != null) {
-      return true;
-    } else  {
-      return  false;
-    }
-  }
-  public verifierachat(): boolean{
-    // tslint:disable-next-line:max-line-length
-    if (this._achat.id != null && this._achat.oldredevable != null && this._achat.newRedevable != null && this._achat.prix != null && this._achat.terrain != null) {
-      return true;
-    } else  {
-      return  false;
-    }
-  }
+
   // tslint:disable-next-line:adjacent-overload-signatures
   set terrainsRedevable(value: Terrain) {
     this._terrainsRedevable = value;
@@ -380,11 +160,11 @@ return this._redevables;
     if (this._achatTerrain == null) {
       this._achatTerrain = new Array<Achat>();
       this._achatTerrain.forEach(achatt => {
-       achatt = new Achat();
-       achatt.terrain = new Terrain();
-       achatt.newRedevable = new Redevable();
-       achatt.oldredevable = new Redevable();
-     });
+        achatt = new Achat();
+        achatt.terrain = new Terrain();
+        achatt.newRedevable = new Redevable();
+        achatt.oldredevable = new Redevable();
+      });
     }
     return this._achatTerrain;
   }
@@ -435,4 +215,267 @@ return this._redevables;
   set result(value: string) {
     this._result = value;
   }
+
+  // tslint:disable-next-line:variable-name
+  private _redevable: Redevable;
+  private _typeredevable: TypeRedevable;
+  private _redevables: Array<Redevable>;
+  private _redevablesNp: Array<Redevable> = new Array<Redevable>();
+  private _terrains: Array<Terrain>;
+  private _terrainsNp: Array<Terrain>;
+  private _terrainAchatID: Terrain;
+  private _terrainsRedevable: Terrain;
+  private _achat: Achat;
+  private _inforedevable: String;
+  private _titreredevable: String;
+  private _infoachat: String;
+  private _titreachat: String;
+  private _categories: Array<Categorie>;
+  private _quarties: Array<Quartier>;
+  private _achatTerrain: Array<Achat>;
+  private c: Terrain;
+  private _terrainId: number;
+  private _date: Datee;
+  private _result: string;
+
+
+  public save() {
+    this.http.post<number>('http://localhost:8080/TNB-Api/Redevable/save', this.redevable).subscribe(
+      data => {
+        if (data === -1) {
+          this._titreredevable = ' ';
+          this._inforedevable = 'ce redevable est dejaa existe';
+          document.getElementById('header').style.color = 'red';
+        } else if (data === -2) {
+          this._titreredevable = ' ';
+          this._inforedevable = 'le type redevable non existe';
+          document.getElementById('header').style.color = 'red';
+        }
+        if (data > 0) {
+          console.log('success');
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public addTerrain() {
+    this.redevable.terrains.push(this.cloneTerrain(this.terrainsRedevable));
+    this.terrainsRedevable = null;
+  }
+
+  public deleteByReference(c: Redevable) {
+    this.http.delete<number>('http://localhost:8080/TNB-Api/Redevable/deletebyidentifiant/' + c.identifiant).subscribe(
+      data => {
+        console.log('delete sucess' + data);
+        this.findAll();
+      }
+    );
+  }
+
+  public findTerrainItemByRedevable(c: Redevable) {
+    this.http.get<Array<Terrain>>('http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c.identifiant).subscribe(
+      data => {
+        this.terrains = data;
+        console.log('ha data ' + data);
+      }, error => {
+        console.log('ana eroroa');
+      }
+    );
+  }
+
+  public findTerrainByRedevableId(c: string) {
+    this.http.get<Array<Terrain>>('http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c).subscribe(
+      data => {
+        this.result = ' <select name="Terrain" (change)="selectionerTerrain($event)">';
+        console.log(data);
+        this.terrains = data;
+        this.terrains.forEach(e => {
+          this._result += '<option value="';
+          this._result += e.id;
+          this._result += '">';
+          this._result += e.id;
+          this._result += '</option>';
+          console.log(e.id);
+        });
+        this._result += '</select>';
+        document.getElementById('listedeterrain').innerHTML = this._result;
+        console.log('ha data ' + data);
+        console.log(this._result);
+      }, error => {
+        console.log('ana eroroa');
+      }
+    );
+  }
+
+  public findAll() {
+    this.http.get<Array<Redevable>>('http://localhost:8080/TNB-Api/Redevable/findall').subscribe(
+      data => {
+        if (data != null) {
+          this._redevables = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+
+  public findAllCategorie() {
+    this.http.get<Array<Categorie>>('http://localhost:8080//TNB-Api/Categorie/findAll').subscribe(
+      data => {
+        if (data != null) {
+          this._categories = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findAllQuartier() {
+    this.http.get<Array<Quartier>>('http://localhost:8080/TNB-Api/Quartier/findAll').subscribe(
+      data => {
+        if (data != null) {
+          this._quarties = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findAchatByTerrainId() {
+    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByTerrainId/id/' + this.terrainId).subscribe(
+      data => {
+        if (data != null) {
+          this._achatTerrain = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findAchatByoldRedevableId() {
+    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByOldredevableId/id/' + this.terrainId).subscribe(
+      data => {
+        if (data != null) {
+          this._achatTerrain = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findAchatByNewRedevableId() {
+    this.http.get<Array<Achat>>('http://localhost:8080/TNB-Api/Achat/findByNewredevableId/id/' + this.terrainId).subscribe(
+      data => {
+        if (data != null) {
+          this._achatTerrain = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findAchatBydateAchat() {
+    this.http.get<Array<Achat>>('http://localhost:8080//TNB-Api/Achat/findByDateachat/dateachat/' + this.date.date).subscribe(
+      data => {
+        if (data != null) {
+          this._achatTerrain = data;
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  public findTerrainsRedevableNp() {
+    this.http.get<Array<Redevable>>('http://localhost:8080/TNB-Api/Redevable/findAllRedevablesWithTerrainsNp').subscribe(
+      value => {
+        this.redevablesNp = value;
+      }
+    );
+    console.log(this.redevablesNp);
+  }
+
+
+  get redevablesNp(): Array<Redevable> {
+    return this._redevablesNp;
+  }
+
+  set redevablesNp(value: Array<Redevable>) {
+    this._redevablesNp = value;
+  }
+
+  public saveAchat() {
+    this.http.put<number>('http://localhost:8080/TNB-Api/Achat/acheterTerrain', this.achat).subscribe(
+      data => {
+        if (data === -1) {
+          this._titreachat = ' ';
+          this._infoachat = 'le terrain est introvable';
+          document.getElementById('acheter').style.color = 'red';
+        } else if (data === -2) {
+          this._titreachat = ' ';
+          this._infoachat = 'ce terrain n existe pas dans la liste de terrain de ce redevable';
+          document.getElementById('acheter').style.color = 'red';
+        } else if (data === -3) {
+          this._titreachat = ' ';
+          this._infoachat = 'le oldredevable est introvable';
+          document.getElementById('acheter').style.color = 'red';
+        } else if (data === -4) {
+          this._titreachat = ' ';
+          this._infoachat = 'le newredevable est introvable';
+          document.getElementById('acheter').style.color = 'red';
+        } else if (data === -5) {
+          this._titreachat = ' ';
+          this._infoachat = 'le oldredevable est le newredevable';
+          document.getElementById('acheter').style.color = 'red';
+        } else if (data === -6) {
+          this._titreachat = ' ';
+          this._infoachat = 'le terrain a des taxes a payer ';
+          document.getElementById('acheter').style.color = 'red';
+        }
+        if (data > 0) {
+          this.findAll();
+          console.log('success');
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+
+  private cloneTerrain(terrain: Terrain) {
+    const myClone = new Terrain();
+    myClone.id = terrain.id;
+    myClone.surface = terrain.surface;
+    myClone.dernierAnnePaiement = terrain.dernierAnnePaiement;
+    myClone.quartier = terrain.quartier;
+    myClone.categorie = terrain.categorie;
+    return myClone;
+  }
+
+  public verifier(): boolean {
+    if (this._redevable.nom != null && this._redevable.identifiant != null && this._redevable.typeRedevable != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public verifierachat(): boolean {
+    // tslint:disable-next-line:max-line-length
+    if (this._achat.id != null && this._achat.oldredevable != null && this._achat.newRedevable != null && this._achat.prix != null && this._achat.terrain != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
 }
