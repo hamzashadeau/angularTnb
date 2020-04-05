@@ -13,8 +13,13 @@
     <li class="nav-item">
       <a routerLink="/secteur-quartier" class="nav-link">Secteur et Quartier</a>
     </li>
-    <li class="nav-item">
-      <a routerLink="/notification" class="nav-link">Notification</a>
+
+    <li class="nav-item dropdown" ngbDropdown>
+      <a  routerLink="/notification" class="nav-link" id="notif" ngbDropdownToggle>Notification</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item" routerLink="/notification/details">Details</button>
+
+      </div>
     </li>
   </ul>
 

@@ -1,8 +1,11 @@
 <div class="container pt-5">
+
   <div class="col-md-10 m-auto align-content-center">
+    <h5 class="display-4 pb-5">Redevables With Non-Payed Terrains</h5>
+    <div class="row mb-5"><div class="col-md-6 m-auto"><button class="btn btn-outline-danger btn-block " (click)="notifyAll()">Notify ALL</button></div></div>
     <div class="card " *ngFor="let r of redevables">
       <div class="card-header"  (click)="afficher(r.id)">
-        <strong>Identifiant : </strong>{{r.identifiant}}  <strong> Nom :</strong> {{r.nom}} <strong> Type :</strong>{{r.typeRedevable.libelle}}
+        <strong>Identifiant : </strong>{{r.identifiant}}  <strong> Nom :</strong> {{r.nom}} <strong> Type :</strong>{{r.typeRedevable.libelle}}<i class="fa fa-arrow-down float-right"></i>
       </div>
       <div class="card-body d-none" id="{{r.id}}">
         <table class="table table-hover table-striped">
@@ -14,23 +17,23 @@
           <th>Annee dernier Payment</th>
           <th>Notification</th>
           </thead>
-          <tbody>
-          <tr *ngFor="let t of r.terrains">
+          <tbody *ngFor="let t of r.terrains">
+
+          <tr >
             <td>{{t.id}}</td>
             <td>{{t.categorie.libelle}}</td>
             <td>{{t.quartier.libelle}}</td>
             <td>{{t.surface}}</td>
             <td >{{t.dernierAnnePaiement}}</td>
             <td>{{t.notification? t.notification.notificationType.libelle:"N/A"}}<i class="pl-2 {{t.notification? t.notification.notificationType.numero==3? 'fa fa-exclamation':'':''}}"></i>  </td>
-            <td>
 
-            </td>
           </tr>
-          </tbody>
+
+           </tbody>
+
         </table>
       </div>
     </div>
-    <div class="row mt-5"><div class="col-md-6 m-auto"><button class="btn btn-outline-danger btn-block " (click)="notifyAll()">Notify ALL</button></div></div>
-      <button class="btn btn-outline-warning"(click)="click()">CLICK</button>
+
   </div>
 </div>

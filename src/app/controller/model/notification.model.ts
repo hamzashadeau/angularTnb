@@ -1,5 +1,6 @@
 import {NotificationType} from './notification-type.model';
 import {Terrain} from './terrain.model';
+import {NotificationDetails} from './notification-details.model';
 
 export class Notification {
   public id: number;
@@ -10,4 +11,5 @@ export class Notification {
   public montantBase: number;
   public montantRetard: number;
   public nombreMoisRetard: number;
+  public notificationDetails: Array<NotificationDetails>;
 }

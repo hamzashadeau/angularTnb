@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import { RedevableChercherAchatComponent } from './redevables/redevable-chercher-achat/redevable-chercher-achat.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SecteurEtQuartierComponent } from './secteur-et-quartier/secteur-et-quartier.component';
+import { NotificationDetailsComponent } from './notification/notification-details/notification-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { SecteurEtQuartierComponent } from './secteur-et-quartier/secteur-et-qua
     NotificationComponent,
     RedevableChercherAchatComponent,
     SecteurEtQuartierComponent,
+    NotificationDetailsComponent,
   ],
     imports: [
         BrowserModule,

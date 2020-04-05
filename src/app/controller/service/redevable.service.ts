@@ -9,6 +9,7 @@ import {Quartier} from '../model/quartier.model';
 import {Datee} from '../model/datee.model';
 import {Observable} from 'rxjs';
 import {TerrainService} from './terrain.service';
+import {NotificationType} from '../model/notification-type.model';
 
 
 @Injectable({
@@ -221,6 +222,7 @@ export class RedevableService {
   private _typeredevable: TypeRedevable;
   private _redevables: Array<Redevable>;
   private _redevablesNp: Array<Redevable> = new Array<Redevable>();
+  private _redevablesNotifs: Array<Redevable> = new Array<Redevable>();
   private _terrains: Array<Terrain>;
   private _terrainsNp: Array<Terrain>;
   private _terrainAchatID: Terrain;
@@ -237,7 +239,24 @@ export class RedevableService {
   private _terrainId: number;
   private _date: Datee;
   private _result: string;
+  private _notifType: NotificationType;
 
+
+  get notifType(): NotificationType {
+    return this._notifType;
+  }
+
+  set notifType(value: NotificationType) {
+    this._notifType = value;
+  }
+
+  get redevablesNotifs(): Array<Redevable> {
+    return this._redevablesNotifs;
+  }
+
+  set redevablesNotifs(value: Array<Redevable>) {
+    this._redevablesNotifs = value;
+  }
 
   public save() {
     this.http.post<number>('http://localhost:8080/TNB-Api/Redevable/save', this.redevable).subscribe(
@@ -401,6 +420,16 @@ export class RedevableService {
       }
     );
     console.log(this.redevablesNp);
+  }
+
+  public findRedevableTerrainsNotifType() {
+    const id = this.notifType == null ? -1 : this.notifType.id;
+    this.http.get<Array<Redevable>>('http://localhost:8080/TNB-Api/Redevable/findAllRedevablesWithNotifs/' + id).subscribe(
+      value => {
+        this.redevablesNotifs = value;
+      }
+    );
+    console.log(this.redevablesNotifs);
   }
 
 

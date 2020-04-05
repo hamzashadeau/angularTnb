@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RedevableService} from '../controller/service/redevable.service';
 import {SecteurService} from '../controller/service/secteur.service';
 import {QuartierService} from '../controller/service/quartier.service';
@@ -14,7 +14,9 @@ import {Terrain} from '../controller/model/terrain.model';
 })
 export class SecteurEtQuartierComponent implements OnInit {
   private _selectedSecteur: Secteur = new Secteur();
-  constructor(private _secteurService: SecteurService, private _quartierService: QuartierService) { }
+
+  constructor(private _secteurService: SecteurService, private _quartierService: QuartierService) {
+  }
 
   ngOnInit(): void {
     this._secteurService.findAll();
@@ -33,15 +35,19 @@ export class SecteurEtQuartierComponent implements OnInit {
   public saveSecteur() {
     return this._secteurService.save();
   }
-  get listQuartiers() : Array<Quartier>{
+
+  get listQuartiers(): Array<Quartier> {
     return this._secteurService.quartiers;
   }
+
   get secteur(): Secteur {
     return this._secteurService.secteur;
   }
+
   get secteurs(): Array<Secteur> {
     return this._secteurService.secteurs;
   }
+
   get quartier(): Quartier {
     return this._quartierService.quartier;
   }
@@ -51,16 +57,19 @@ export class SecteurEtQuartierComponent implements OnInit {
   }
 
   public afficher() {
-    for (let i = 1; i < 3 ; i++) {
+    for (let i = 1; i < 3; i++) {
       if (document.getElementById('quartierform' + i).style.display === 'none') {
         document.getElementById('quartierform' + i).style.display = 'inline-block';
-      } else { document.getElementById('quartierform' + i).style.display = 'none'; }
+      } else {
+        document.getElementById('quartierform' + i).style.display = 'none';
+      }
     }
   }
 
-  public saveQuartiers(){
+  public saveQuartiers() {
     this._secteurService.saveAllQuartier(this._selectedSecteur);
   }
+
   public addQuartier() {
     this._secteurService.addQuartier();
   }
@@ -68,9 +77,11 @@ export class SecteurEtQuartierComponent implements OnInit {
   public verifierSecteur() {
     return this._secteurService.verifier();
   }
+
   public verifierQuartier() {
     return this._quartierService.verifier();
   }
+
   public selectioner() {
     console.log(this._selectedSecteur);
 
@@ -79,9 +90,9 @@ export class SecteurEtQuartierComponent implements OnInit {
 
 
   private setDefault() {
-    if (this.secteurs.length>0){
+    if (this.secteurs.length > 0) {
       return this.secteurs[0];
-    }else {
+    } else {
       return null;
     }
   }
@@ -93,7 +104,7 @@ export class SecteurEtQuartierComponent implements OnInit {
       document.getElementById('new').className = 'card-footer';
       document.getElementById('exist').className = 'd-none';
       document.getElementById('existing').className = 'd-none';
-      this._secteurService.quartiers =null;
+      this._secteurService.quartiers = null;
       console.log('passed');
     }
   }
@@ -106,7 +117,7 @@ export class SecteurEtQuartierComponent implements OnInit {
       document.getElementById('existing').className = 'card-footer';
       document.getElementById('createnew').className = 'd-none';
       document.getElementById('new').className = 'd-none';
-      this._secteurService.quartiers =null;
+      this._secteurService.quartiers = null;
       console.log('passed');
     }
 
