@@ -18,7 +18,8 @@ export class RedevableCreateComponent implements OnInit {
   ngOnInit(): void {
   this._redevableService.findAllCategorie();
   this._redevableService.findAllQuartier();
-     }
+  this._redevableService.findAlltypeeredevable();
+  }
 
   get redevable(): Redevable {
     return this._redevableService.redevable;
@@ -53,6 +54,18 @@ export class RedevableCreateComponent implements OnInit {
   }
   public verifier(): boolean {
     return this._redevableService.verifier();
+  }
+public selectionerquartier(event) {
+this.terrainsRedevable.quartier.id = event.target.value;
+console.log(this.terrainsRedevable.quartier.id);
+}
+  public selectionercategorie(event) {
+    this.terrainsRedevable.categorie.id = event.target.value;
+    console.log(this.terrainsRedevable.categorie.id);
+  }
+  public selectionerTyperedevable(event) {
+    this.redevable.typeRedevable.libelle = event.target.value;
+    console.log(this.redevable.typeRedevable.libelle);
   }
 
 }

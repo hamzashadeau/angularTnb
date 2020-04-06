@@ -45,3 +45,17 @@ h1{
   width: 50%;
   display: block;
 }
+#quartierid{
+  width: 390px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#categorieid{
+  width: 390px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#typeresult{
+  margin: 30px;
+  height: 90px;
+}

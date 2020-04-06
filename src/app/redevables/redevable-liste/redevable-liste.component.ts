@@ -25,11 +25,9 @@ export class RedevableListeComponent implements OnInit {
   get redevable(): Redevable {
     return this.redevableService.redevable;
   }
-
   deleteByReference(c: Redevable) {
     return this.redevableService.deleteByReference(c);
   }
-
   findTerrainItemByRedevable(c: Redevable) {
     return this.redevableService.findTerrainItemByRedevable(c);
   }
@@ -42,15 +40,24 @@ export class RedevableListeComponent implements OnInit {
    get titreachat(): String {
     return this.redevableService.titreachat;
   }
-
   get infoachat(): String {
     return this.redevableService.infoachat;
   }
-  public verifierachat(): boolean{
+  public verifierachat(): boolean {
   return this.redevableService.verifierachat();
   }
   public findTerrainRedevable(iden: string): void {
     return this.redevableService.findTerrainByRedevableId(iden);
-    console.log(iden);
+  }
+  get redevableId(): string {
+    return this.redevableService.redevableId;
+  }
+  public selectionerTerrain(event) {
+    console.log('ha howa terrain:' + this.achat.terrain.id);
+    this.achat.terrain.id = event.target.value;
+  }
+  public selectionerRedevable(event) {
+    console.log('ha howa newredevable:' + this.achat.newRedevable.identifiant);
+    this.achat.newRedevable.identifiant = event.target.value;
   }
 }

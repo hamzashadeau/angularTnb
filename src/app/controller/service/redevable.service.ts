@@ -239,6 +239,7 @@ export class RedevableService {
   private _terrainId: number;
   private _date: Datee;
   private _result: string;
+<<<<<<< Updated upstream
   private _notifType: NotificationType;
 
 
@@ -257,6 +258,16 @@ export class RedevableService {
   set redevablesNotifs(value: Array<Redevable>) {
     this._redevablesNotifs = value;
   }
+=======
+  private _resultQuartier: string;
+  private _resultcategorie: string;
+  private _redevableId: string;
+  private _redevableIdentifiant: string;
+  private _typeredevableresult: string;
+  private _redevableresult: string;
+  private _typeredevables: Array<TypeRedevable>;
+  constructor(private http: HttpClient) { }
+>>>>>>> Stashed changes
 
   public save() {
     this.http.post<number>('http://localhost:8080/TNB-Api/Redevable/save', this.redevable).subscribe(
@@ -292,6 +303,7 @@ export class RedevableService {
       }
     );
   }
+<<<<<<< Updated upstream
 
   public findTerrainItemByRedevable(c: Redevable) {
     this.http.get<Array<Terrain>>('http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c.identifiant).subscribe(
@@ -304,24 +316,41 @@ export class RedevableService {
     );
   }
 
+=======
+public findTerrainItemByRedevable(c: Redevable) {
+  this.http.get<Array<Terrain>>( 'http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c.identifiant).subscribe(
+    data => {
+      this.terrains = data ;
+      this.redevableId = c.identifiant;
+      console.log('ha data ' + data);
+    }, error => {
+      console.log('ana eroroa');
+    }
+  );
+}
+>>>>>>> Stashed changes
   public findTerrainByRedevableId(c: string) {
     this.http.get<Array<Terrain>>('http://localhost:8080/TNB-Api/Terrain/findByRedevableIdentifiant/' + c).subscribe(
       data => {
-        this.result = ' <select name="Terrain" (change)="selectionerTerrain($event)">';
         console.log(data);
+        this._result += ' <option value="#">select un terrain</option>';
         this.terrains = data;
+<<<<<<< Updated upstream
         this.terrains.forEach(e => {
+=======
+        this._redevableId = c;
+        this.findAll();
+        document.getElementById('head').style.display = 'block';
+        this.terrains.forEach( e => {
+>>>>>>> Stashed changes
           this._result += '<option value="';
           this._result += e.id;
           this._result += '">';
           this._result += e.id;
           this._result += '</option>';
-          console.log(e.id);
         });
-        this._result += '</select>';
-        document.getElementById('listedeterrain').innerHTML = this._result;
+        document.getElementById('terrainresult').innerHTML += this._result;
         console.log('ha data ' + data);
-        console.log(this._result);
       }, error => {
         console.log('ana eroroa');
       }
@@ -332,7 +361,18 @@ export class RedevableService {
     this.http.get<Array<Redevable>>('http://localhost:8080/TNB-Api/Redevable/findall').subscribe(
       data => {
         if (data != null) {
+          this._redevableresult = ' <option value="#">select lidentifiant du nouveau redevable </option>';
           this._redevables = data;
+          this._redevables.forEach( e => {
+            if (e.identifiant !== this._redevableId) {
+        this._redevableresult += '<option value="';
+        this._redevableresult +=  e.identifiant ;
+        this._redevableresult += '">';
+        this._redevableresult += e.identifiant ;
+        this._redevableresult += '</option>';
+            }
+      });
+          document.getElementById('Redevableresult').innerHTML = this._redevableresult;
         }
       }, eror => {
         console.log('eroro');
@@ -346,18 +386,61 @@ export class RedevableService {
       data => {
         if (data != null) {
           this._categories = data;
+          this._resultcategorie = '<option value="#"> selectioner un id categorie</option>';
+          this._categories.forEach(e => {
+            this._resultcategorie += '<option value="';
+            this._resultcategorie +=  e.id ;
+            this._resultcategorie += '">';
+            this._resultcategorie += e.id ;
+            this._resultcategorie += '</option>';
+            document.getElementById('quartierid').innerHTML = this._resultcategorie;
+          });
         }
       }, eror => {
         console.log('eroro');
       }
     );
   }
+<<<<<<< Updated upstream
+=======
+  public findAlltypeeredevable() {
+    this.http.get<Array<TypeRedevable>>('http://localhost:8080/TNB-Api/typeredevable/findall').subscribe(
+      data => {
+        if (data != null) {
+          this._typeredevables = data;
+          // tslint:disable-next-line:max-line-length
+          this._typeredevableresult = ' <select name="Typeredevable" id="typeresult" class="col-8" (change)="selectionerTyperedevable($event)">';
+          this._typeredevableresult += '<option value="#"> selectioner un type redevable</option>';
+          this._typeredevables.forEach(e => {
+            this._typeredevableresult += '<option value="';
+            this._typeredevableresult +=  e.libelle ;
+            this._typeredevableresult += '">';
+            this._typeredevableresult += e.libelle ;
+            this._typeredevableresult += '</option>';
+            document.getElementById('typreredevable').innerHTML = this.typeredevableresult;
+          });
+        }
+      }, eror => {
+        console.log('eroro');
+      }
+    );
+  }
+>>>>>>> Stashed changes
 
   public findAllQuartier() {
     this.http.get<Array<Quartier>>('http://localhost:8080/TNB-Api/Quartier/findAll').subscribe(
       data => {
         if (data != null) {
           this._quarties = data;
+          this._resultQuartier = '<option value="#"> selectioner un id quartier</option>';
+          this._quarties.forEach(e => {
+            this._resultQuartier += '<option value="';
+            this._resultQuartier +=  e.id ;
+            this._resultQuartier += '">';
+            this._resultQuartier += e.id ;
+            this._resultQuartier += '</option>';
+            document.getElementById('categorieid').innerHTML = this._resultQuartier;
+          });
         }
       }, eror => {
         console.log('eroro');
@@ -478,6 +561,70 @@ export class RedevableService {
       }
     );
   }
+<<<<<<< Updated upstream
+=======
+  get redevable(): Redevable {
+    if (this._redevable == null) {
+      this._redevable = new Redevable();
+      this._redevable.typeRedevable = new TypeRedevable();
+    }
+    return this._redevable;
+  }
+
+  set redevable(value: Redevable) {
+    this._redevable = value;
+  }
+
+  get typeredevable(): TypeRedevable {
+    if (this._typeredevable == null) {
+      this._typeredevable = new TypeRedevable();
+    }
+    return this._typeredevable;
+  }
+
+  set typeredevable(value: TypeRedevable) {
+    this._typeredevable = value;
+  }
+
+  get redevables(): Array<Redevable> {
+if (this._redevables == null) {
+  this._redevables = new Array<Redevable>();
+}
+return this._redevables;
+  }
+
+  set redevables(value: Array<Redevable>) {
+    this._redevables = value;
+  }
+
+  get terrains(): Array<Terrain> {
+ if (this._terrains == null) {
+   this.terrains = new Array<Terrain>();
+   for (const c of this.terrains) {
+     c.redevable = new Redevable();
+   }
+ }
+ return this._terrains;
+  }
+
+  set terrains(value: Array<Terrain>) {
+    this._terrains = value;
+  }
+
+  get achat(): Achat {
+    if (this._achat == null) {
+    this._achat = new Achat();
+    this._achat.terrain = new Terrain();
+    this._achat.newRedevable = new Redevable();
+    this._achat.oldredevable = new Redevable();
+    }
+    return this._achat;
+  }
+
+  set achat(value: Achat) {
+    this._achat = value;
+  }
+>>>>>>> Stashed changes
 
   private cloneTerrain(terrain: Terrain) {
     const myClone = new Terrain();
@@ -496,10 +643,18 @@ export class RedevableService {
       return false;
     }
   }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   public verifierachat(): boolean {
     // tslint:disable-next-line:max-line-length
-    if (this._achat.id != null && this._achat.oldredevable != null && this._achat.newRedevable != null && this._achat.prix != null && this._achat.terrain != null) {
+    console.log(this._achat.reference);
+    console.log(this._achat.oldredevable.identifiant);
+    console.log(this._achat.newRedevable.identifiant);
+    console.log(this._achat.prix);
+    console.log(this._achat.terrain.id);
+    if (this._achat.reference !== null && this._achat.oldredevable.identifiant !== null && this._achat.newRedevable.identifiant !== null && this._achat.prix != null && this._achat.terrain.id != null) {
       return true;
     } else {
       return false;
@@ -507,4 +662,138 @@ export class RedevableService {
   }
 
 
+<<<<<<< Updated upstream
+=======
+  get infoachat(): String {
+    if (this._infoachat == null) {
+      this._infoachat = new String();
+    }
+    return this._infoachat;
+  }
+
+  set infoachat(value: String) {
+    this._infoachat = value;
+  }
+
+
+  get achatTerrain(): Array<Achat> {
+    if (this._achatTerrain == null) {
+      this._achatTerrain = new Array<Achat>();
+      this._achatTerrain.forEach(achatt => {
+       achatt = new Achat();
+       achatt.terrain = new Terrain();
+       achatt.newRedevable = new Redevable();
+       achatt.oldredevable = new Redevable();
+     });
+    }
+    return this._achatTerrain;
+  }
+
+  set achatTerrain(value: Array<Achat>) {
+    this._achatTerrain = value;
+  }
+
+  get terrainId(): number {
+    this._terrainId = this.terrainAchatID.id;
+    return this._terrainId;
+  }
+
+  set terrainId(value: number) {
+    this._terrainId = value;
+  }
+
+  get terrainAchatID(): Terrain {
+    if (this._terrainAchatID == null) {
+      this._terrainAchatID = new Terrain();
+      this._terrainAchatID.redevable = new Redevable();
+      this._terrainAchatID.categorie = new Categorie();
+      this._terrainAchatID.quartier = new Quartier();
+    }
+    return this._terrainAchatID;
+  }
+
+  set terrainAchatID(value: Terrain) {
+    this._terrainAchatID = value;
+  }
+
+  get date(): Datee {
+    if (this._date == null) {
+      this._date = new Datee();
+    }
+    return this._date;
+  }
+
+  set date(value: Datee) {
+    this._date = value;
+  }
+
+  get result(): string {
+    return this._result;
+  }
+
+  set result(value: string) {
+    this._result = value;
+  }
+
+  get resultQuartier(): string {
+    return this._resultQuartier;
+  }
+
+  set resultQuartier(value: string) {
+    this._resultQuartier = value;
+  }
+
+  get resultcategorie(): string {
+    return this._resultcategorie;
+  }
+
+  set resultcategorie(value: string) {
+    this._resultcategorie = value;
+  }
+
+  get redevableId(): string {
+    return this._redevableId;
+  }
+
+  set redevableId(value: string) {
+    this._redevableId = value;
+  }
+
+  get typeredevableresult(): string {
+    return this._typeredevableresult;
+  }
+
+  set typeredevableresult(value: string) {
+    this._typeredevableresult = value;
+  }
+
+  get typeredevables(): Array<TypeRedevable> {
+    if (this._typeredevables == null) {
+  this._typeredevables.forEach( e => {
+    e = new TypeRedevable();
+  });
+}
+    return this._typeredevables;
+  }
+
+  set typeredevables(value: Array<TypeRedevable>) {
+    this._typeredevables = value;
+  }
+
+  get redevableresult(): string {
+    return this._redevableresult;
+  }
+
+  set redevableresult(value: string) {
+    this._redevableresult = value;
+  }
+
+  get redevableIdentifiant(): string {
+    return this._redevableIdentifiant;
+  }
+
+  set redevableIdentifiant(value: string) {
+    this._redevableIdentifiant = value;
+  }
+>>>>>>> Stashed changes
 }

@@ -14,21 +14,26 @@
       <label>nom:</label>
       <input type="text" class="form-control" [(ngModel)]="redevable.nom" placeholder="entrer votre nom:">
     </div>
-  <div class="form-group">
-     <label>le type de redevable :</label>
-      <input type="text" class="form-control" [(ngModel)]="redevable.typeRedevable.libelle" placeholder="type_redevable:">
-  </div>
+  <div class="form-group" >
+    <label>type Redevable:</label>
+    <div id="typreredevable">
 
+    </div>
+  </div>
     <div class="card">
       <a (click)="afficher()">  <div class="card-header"> Ajouter un terrain</div></a>
 <div id="terrainform">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6"><label>id quartier</label>
-            <input type="number" class="form-control" [(ngModel)]="terrainsRedevable.quartier.id" placeholder="id_quartier:">
+          <div class="col-md-12">
+           <select id="quartierid" name="idquartier" (change)="selectionerquartier($event)">
+             <option value="#"> selectioner un id quartier</option>
+           </select>
           </div>
-          <div class="col-md-6"><label>id categorie</label>
-            <input type="text" class="form-control" [(ngModel)]="terrainsRedevable.categorie.id" placeholder=" id_categorie:">
+          <div class="col-md-12">
+            <select id="categorieid" name="idcategorie" (change)="selectionercategorie($event)">
+              <option value="#"> selectioner un id categorie</option>
+            </select>
           </div>
 
           <div class="col-md-12"><label>surface</label>
