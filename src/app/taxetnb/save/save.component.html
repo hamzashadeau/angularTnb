@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row ">
+    <div class="align-content-center m-auto ">
+      <h1 class="pb-5 pt-5">Les Taxes TNB</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-10 col-6 mx-md-auto my-md-5">
+      <div class="card ">
+        <div class="card-header bg-primary border-primary">
+          <p class="pb-2 pt-2"> Taxe Calculator </p>
+        </div>
+        <div class="card-body p-2 ">
+
+          <div class="input-group input-group-sm my-3 col-10 mx-auto">
+            <div class="input-group-prepend">
+              <span class="input-group-text d-none d-md-block" id="inputGroup-sizing-sm">CNE Redevable</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Identifiant" (keyup.enter)="findTerrainsByRedId($event)" >
+          </div>
+
+          <div class="input-group input-group-sm my-3 col-10 mx-auto">
+
+            <select class="custom-select" id="inputGroupSelect03" [(ngModel)]="TerrainId">
+              <option *ngFor="let c of terrainList" [value]="c.id">{{c.categorie.libelle}}_{{c.quartier.libelle}}_{{c.categorie.libelle}}</option>
+            </select>
+          </div>
+
+          <div class="input-group input-group-sm my-3 col-10 mx-auto">
+            <div class="input-group-prepend">
+              <span class="input-group-text d-none d-md-block" id="inputGroup-sizing-sm">Annee</span>
+            </div>
+            <input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Aneee" [(ngModel)]="annee" >
+          </div>
+
+          <div class="my-3 col-10 mx-auto">
+            <button type="button" class="btn btn-primary"   (click)="payer()">Payer</button>
+            <button type="button" class="btn btn-secondary" (click)="payerSim()">Simuler</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-6 mx-md-auto my-md-5">
+      <div class="card ">
+        <div class="card-header bg-primary border-primary">
+          <p class="pb-2 pt-2"> Save Taxe </p>
+        </div>
+        <div class="card-body p-2 ">
+          <div *ngIf="successPaye==1" class="alert alert-success" role="alert">
+            Successfully saved !
+          </div>
+          <div *ngIf="successPaye==-2" class="alert alert-danger" role="alert">
+            Error ! Already payed maybe ?
+          </div>
+          <div *ngIf="successPaye==-1" class="alert alert-danger" role="alert">
+            Error ! TaxeTNB object is not right.
+          </div>
+          <table *ngIf="successPaye==2" class="table table-striped table-info">
+            <thead class="thead-primary">
+            <th>champ</th>
+            <th>Valeur</th>
+            </thead>
+            <tbody>
+
+            <tr>
+              <td>Redevable Infos</td>
+              <td>{{taxePaye.redevable.identifiant}} {{taxePaye.redevable.nom}} {{taxePaye.redevable.typeRedevable.libelle}}</td>
+            </tr>
+            <tr>
+              <td>terrain</td>
+              <td>{{taxePaye.terrain.categorie.libelle}}_{{taxePaye.terrain.quartier.libelle}}_{{taxePaye.terrain.surface}}m2</td>
+            </tr>
+            <tr>
+              <td>Annee</td>
+              <td>{{taxePaye.annee}}</td>
+            </tr>
+            <tr>
+              <td>Montant de Base</td>
+              <td>{{taxePaye.montant}} DH</td>
+            </tr>
+            <tr>
+              <td>Montant de retard</td>
+              <td>{{taxePaye.montantRetard}} DH</td>
+            </tr>
+            <tr>
+              <td>Montant Total</td>
+              <td>{{taxePaye.montantTotal}} DH</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+

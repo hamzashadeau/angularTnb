@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row ">
+    <div class="align-content-center m-auto ">
+      <h1 class="pb-5 pt-5">Les Taxes TNB</h1>
+      <h3 class="pb-3">Trouver les taxes payée par un redevable par son Identifiant</h3>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="card ">
+        <div class="card-header bg-primary border-primary pl-2 pr-2">
+          <input type="text" class="form-control border-dark" placeholder="Identifiant" [(ngModel)]='identifiant'>
+          <button class="btn btn-outline-dark btn-block" (click)="findByRedevableIdent()">Find By Redevable</button>
+        </div>
+        <div class="card-body p-2 ">
+
+          <table class="table table-striped table-info">
+            <thead class="thead-primary">
+            <th>Id</th>
+            <th>Redevable_Identifiant</th>
+            <th>Terrain</th>
+            <th>Date</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let c of taxelist">
+              <td>{{c.id}}</td>
+              <td>{{c.redevable.identifiant}}</td>
+              <td>{{c.terrain.categorie.libelle}}_{{c.terrain.quartier.libelle}}_{{c.terrain.surface}}</td>
+              <td>{{c.annee}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

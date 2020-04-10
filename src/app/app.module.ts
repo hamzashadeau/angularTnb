@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { RedevablesComponent } from './redevables/redevables.component';
@@ -14,6 +15,13 @@ import { RedevableChercherAchatComponent } from './redevables/redevable-chercher
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SecteurEtQuartierComponent } from './secteur-et-quartier/secteur-et-quartier.component';
 import { NotificationDetailsComponent } from './notification/notification-details/notification-details.component';
+import { TaxetnbComponent } from './taxetnb/taxetnb.component';
+import { FindbyredevableComponent } from './taxetnb/findbyredevable/findbyredevable.component';
+
+import { SaveComponent } from './taxetnb/save/save.component';
+import { TauxtnbComponent } from './tauxtnb/tauxtnb.component';
+
+import { FindbystuffComponent } from './tauxtnb/findbystuff/findbystuff.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +32,14 @@ import { NotificationDetailsComponent } from './notification/notification-detail
     RedevableChercherAchatComponent,
     SecteurEtQuartierComponent,
     NotificationDetailsComponent,
+    TaxetnbComponent,
+    FindbyredevableComponent,
+    SaveComponent,
+    TauxtnbComponent,
+    FindbystuffComponent,
   ],
     imports: [
+        CommonModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,

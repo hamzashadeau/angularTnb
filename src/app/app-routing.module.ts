@@ -5,6 +5,12 @@ import {RedevableListeComponent} from './redevables/redevable-liste/redevable-li
 import {RedevableChercherAchatComponent} from './redevables/redevable-chercher-achat/redevable-chercher-achat.component';
 import {SecteurEtQuartierComponent} from './secteur-et-quartier/secteur-et-quartier.component';
 import {NotificationDetailsComponent} from './notification/notification-details/notification-details.component';
+import {TaxetnbComponent} from './taxetnb/taxetnb.component';
+import {FindbyredevableComponent} from './taxetnb/findbyredevable/findbyredevable.component';
+
+import {SaveComponent} from './taxetnb/save/save.component';
+import {TauxtnbComponent} from './tauxtnb/tauxtnb.component';
+import {FindbystuffComponent} from './tauxtnb/findbystuff/findbystuff.component';
 
 
 const routes: Routes = [
@@ -23,6 +29,17 @@ const routes: Routes = [
     ]
   },
   {path: 'notification', component: NotificationComponent},
+  {path: 'taxetnb', children:[
+      {path: '', component: TaxetnbComponent},
+      {path: 'findbyredevableid', component: FindbyredevableComponent},
+      {path: 'save', component: SaveComponent}
+    ]},
+  {path: 'tauxtnb', children:[
+      {path: '', component: TauxtnbComponent},
+      {path: 'findbystuff', component: FindbystuffComponent},
+
+    ]},
+
   {path: '**', redirectTo: 'redevable/ajouter-redevable'}
 ];
 export const AppRoutingModule = RouterModule.forRoot(routes);

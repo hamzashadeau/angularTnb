@@ -2,6 +2,12 @@ import {Redevable} from './redevable.model';
 import {Categorie} from './categorie.model';
 import {Quartier} from './quartier.model';
 import {Notification} from './notification.model';
+import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+
+@NgModule({
+  imports: [CommonModule]
+})
 
 export class Terrain {
   private _id: number;

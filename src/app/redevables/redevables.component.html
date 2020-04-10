@@ -21,6 +21,22 @@
 
       </div>
     </li>
+    <li class="nav-item dropdown" ngbDropdown>
+      <a  routerLink="/tauxtnb" class="nav-link" id="tauxtnb" ngbDropdownToggle>TauxTNB</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+
+      <button class="dropdown-item" routerLink="/tauxtnb/findbystuff">findBys</button>
+      </div>
+
+    </li>
+    <li class="nav-item dropdown" ngbDropdown>
+      <a  routerLink="/taxetnb" class="nav-link" id="taxetnb" ngbDropdownToggle>TaxeTNB</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item" routerLink="/taxetnb/findbyredevableid">TaxeTNB by redevableID</button>
+      <button class="dropdown-item" routerLink="/taxetnb/save">Payer TaxeTNB</button>
+
+      </div>
+    </li>
   </ul>
 
 </nav>
